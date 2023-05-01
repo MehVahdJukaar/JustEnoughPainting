@@ -1,4 +1,4 @@
-package net.mehvahdjukaar.jep;
+package net.mehvahdjukaar.jepp.jei;
 
 import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.network.chat.FormattedText;

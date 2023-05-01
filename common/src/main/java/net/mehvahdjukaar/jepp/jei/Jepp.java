@@ -1,4 +1,4 @@
-package net.mehvahdjukaar.jep;
+package net.mehvahdjukaar.jepp.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
