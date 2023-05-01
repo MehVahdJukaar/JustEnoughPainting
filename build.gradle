@@ -104,6 +104,8 @@ allprojects {
 
         mavenLocal()
 
+        maven { url "https://maven.shedaniel.me" }
+
         maven { url "https://maven.parchmentmc.org" }
 
         maven {

@@ -3,7 +3,7 @@ architectury {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/goated.accesswidener")
+    accessWidenerPath = file("src/main/resources/jepp.accesswidener")
 }
 
 dependencies {
@@ -12,7 +12,8 @@ dependencies {
 
     modCompileOnly("curse.maven:jei-238222:4405345")
     //modCompileOnly("curse.maven:roughly-enough-items-310111:4357860")
-    modCompileOnly("curse.maven:roughly-enough-items-310111:4401136")
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-forge:9.1.595"
+    //modCompileOnly "me.shedaniel:RoughlyEnoughItems-forge:9.1.595"
 
     modImplementation("net.mehvahdjukaar:moonlight:${project.moonlight_version}")
 }

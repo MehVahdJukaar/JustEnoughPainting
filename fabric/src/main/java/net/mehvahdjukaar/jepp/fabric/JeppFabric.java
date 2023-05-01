@@ -16,13 +16,9 @@ public class JeppFabric implements ModInitializer {
 
         if (PlatformHelper.getEnv().isClient()) {
             FabricSetupCallbacks.CLIENT_SETUP.add(JeppClient::init);
-            FabricSetupCallbacks.CLIENT_SETUP.add(GoatHelmetArmorRenderer::register);
         }
 
         FabricSetupCallbacks.COMMON_SETUP.add(Jepp::commonSetup);
-
-        ServerTickEvents.START_SERVER_TICK.register(FabricRamBreakingHandler::tick);
-
     }
 
 

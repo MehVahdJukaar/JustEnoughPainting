@@ -17,6 +17,12 @@
   "entrypoints": {
     "main": [
       "net.mehvahdjukaar.jepp.fabric.JeppFabric"
+    ],
+    "rei_client": [
+      "net.mehvahdjukaar.jepp.rei.JeppReiPlugin"
+    ],
+    "jei_mod_plugin": [
+      "net.mehvahdjukaar.jepp.jei.JeppJeiPlugin"
     ]
   },
   "mixins": [

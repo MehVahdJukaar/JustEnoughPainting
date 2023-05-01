@@ -3,11 +3,14 @@ package net.mehvahdjukaar.jepp.jei;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.mehvahdjukaar.jepp.PaintingInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -17,20 +20,18 @@ import net.minecraft.client.resources.PaintingTextureManager;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.decoration.Motive;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import java.util.List;
+public class PaintingRecipeCategory implements IRecipeCategory<PaintingInfo> {
 
-public class PaintingRecipeCategory implements IRecipeCategory<PaintingInfoRecipe> {
 
-    public static final ResourceLocation UID = Jepp.res("paintings");
-
-    public static final int recipeWidth = 160;
-    public static final int recipeHeight = 125;
+    public static final int RECIPE_WIDTH = 160;
+    public static final int RECIPE_HEIGHT = 125;
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -38,21 +39,16 @@ public class PaintingRecipeCategory implements IRecipeCategory<PaintingInfoRecip
     private final Component localizedName;
 
     public PaintingRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(recipeWidth, recipeHeight);
+        this.background = guiHelper.createBlankDrawable(RECIPE_WIDTH, RECIPE_HEIGHT);
 
-        this.icon = guiHelper.createDrawableIngredient(new ItemStack(Items.PAINTING));
+        this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(Items.PAINTING));
 
-        this.localizedName = new TranslatableComponent("jepp.category.paintings_info");
+        this.localizedName = Component.translatable("jepp.category.paintings_info");
     }
 
     @Override
-    public ResourceLocation getUid() {
-        return UID;
-    }
-
-    @Override
-    public Class<? extends PaintingInfoRecipe> getRecipeClass() {
-        return PaintingInfoRecipe.class;
+    public RecipeType<PaintingInfo> getRecipeType() {
+        return JeppJeiPlugin.PAINTING_INFO_TYPE;
     }
 
     @Override
@@ -66,40 +62,40 @@ public class PaintingRecipeCategory implements IRecipeCategory<PaintingInfoRecip
     }
 
     @Override
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, PaintingInfo paintingInfoRecipe, IFocusGroup iFocusGroup) {
+
+    }
+
+    @Override
     public IDrawable getBackground() {
         return background;
     }
 
     @Override
-    public void setIngredients(PaintingInfoRecipe recipe, IIngredients ingredients) {
-        ingredients.setInputs(VanillaTypes.ITEM, List.of(new ItemStack(Items.PAINTING)));
-    }
+    public void draw(PaintingInfo recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
 
-    @Override
-    public void draw(PaintingInfoRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
-
-        int yPos = recipeHeight - 8;
+        int yPos = RECIPE_HEIGHT - 8;
 
         Font font = Minecraft.getInstance().font;
 
-        BaseComponent name = recipe.getName();
+        MutableComponent name = (MutableComponent) recipe.getName();
         name.setStyle(Style.EMPTY.withBold(true));//.withColor(TextColor.fromRgb(color)));
-        float centerX = recipeWidth / 2f - font.width(name) / 2f;
-        font.draw(matrixStack, Language.getInstance().getVisualOrder(name), centerX, 0, 0xFF000000);
+        float centerX = RECIPE_WIDTH / 2f - font.width(name) / 2f;
+        font.draw(poseStack, Language.getInstance().getVisualOrder(name), centerX, 0, 0xFF000000);
 
         FormattedText descriptionLine = recipe.getDescription();
-        centerX = recipeWidth / 2f - font.width(descriptionLine) / 2f;
-        font.draw(matrixStack, Language.getInstance().getVisualOrder(descriptionLine), centerX, yPos, 0xFF000000);
+        centerX = RECIPE_WIDTH / 2f - font.width(descriptionLine) / 2f;
+        font.draw(poseStack, Language.getInstance().getVisualOrder(descriptionLine), centerX, yPos, 0xFF000000);
 
 
         //render painting
-        Motive motive = recipe.getMotive();
+        PaintingVariant motive = recipe.getPainting();
 
         float spacing = 12;
-        float maxWidth = recipeWidth;
-        float maxHeight = recipeHeight - spacing - 12;
+        float maxWidth = RECIPE_WIDTH;
+        float maxHeight = RECIPE_HEIGHT - spacing - 12;
 
-        matrixStack.translate(maxWidth / 2f, spacing + maxHeight / 2f, 0);
+        poseStack.translate(maxWidth / 2f, spacing + maxHeight / 2f, 0);
 
         int pWidth = motive.getWidth();
         int pHeight = motive.getHeight();
@@ -107,10 +103,10 @@ public class PaintingRecipeCategory implements IRecipeCategory<PaintingInfoRecip
         float ratio = pHeight / (float) pWidth;
         float screenRatio = maxHeight / maxWidth;
 
-        float scale = ratio < screenRatio ? maxWidth / (float) pWidth : maxHeight / pHeight;
+        float scale = ratio < screenRatio ? maxWidth / pWidth : maxHeight / pHeight;
 
 
-        matrixStack.scale(scale, scale, scale);
+        poseStack.scale(scale, scale, scale);
 
         ResourceLocation texture = Minecraft.getInstance().getPaintingTextures().getBackSprite().atlas().location();
         PaintingTextureManager paintingtexturemanager = Minecraft.getInstance().getPaintingTextures();
@@ -121,16 +117,11 @@ public class PaintingRecipeCategory implements IRecipeCategory<PaintingInfoRecip
         RenderSystem.setShaderTexture(0, texture);
 
 
-        matrixStack.translate(-pWidth / 2f, -pHeight / 2f, 0);
-        GuiComponent.blit(matrixStack, 0, 0, 0, pWidth, pHeight, sprite);
+        poseStack.translate(-pWidth / 2f, -pHeight / 2f, 0);
+        GuiComponent.blit(poseStack, 0, 0, 0, pWidth, pHeight, sprite);
 
         RenderSystem.applyModelViewMatrix();
 
-
-    }
-
-    @Override
-    public void setRecipe(IRecipeLayout recipeLayout, PaintingInfoRecipe recipe, IIngredients ingredients) {
 
     }
 }
