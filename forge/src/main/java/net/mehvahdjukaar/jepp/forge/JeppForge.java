@@ -17,9 +17,8 @@ public class JeppForge {
     public JeppForge() {
         Jepp.commonInit();
 
-        if (PlatformHelper.getEnv().isClient()) {
-            JeppClient.init();
-        }
+        JeppClient.init();
+
         MinecraftForge.EVENT_BUS.register(this);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(JeppForge::setup);
     }
