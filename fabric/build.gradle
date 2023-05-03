@@ -32,10 +32,10 @@ dependencies {
         exclude module: "fabric-api"
     }
 
-    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:9.1.595"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:9.1.595"
 
     modRuntimeOnly("curse.maven:architectury-api-419699:4476083")
-    modCompileOnly("curse.maven:jei-238222:4494409")
+    modImplementation("curse.maven:jei-238222:4494409")
 
     modImplementation ("net.mehvahdjukaar:moonlight-fabric:${project.moonlight_version}")
 }
