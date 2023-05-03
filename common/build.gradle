@@ -14,8 +14,6 @@ dependencies {
     //modCompileOnly("curse.maven:roughly-enough-items-310111:4357860")
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-forge:9.1.595"
     //modCompileOnly "me.shedaniel:RoughlyEnoughItems-forge:9.1.595"
-
-    modImplementation("net.mehvahdjukaar:moonlight:${project.moonlight_version}")
 }
 
 publishing {
