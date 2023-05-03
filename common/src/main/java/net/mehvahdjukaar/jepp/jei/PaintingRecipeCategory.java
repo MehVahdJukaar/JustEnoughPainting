@@ -4,10 +4,13 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.mehvahdjukaar.jepp.PaintingInfo;
@@ -17,15 +20,20 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.PaintingTextureManager;
+import net.minecraft.core.NonNullList;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class PaintingRecipeCategory implements IRecipeCategory<PaintingInfo> {
 
@@ -62,8 +70,9 @@ public class PaintingRecipeCategory implements IRecipeCategory<PaintingInfo> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, PaintingInfo paintingInfoRecipe, IFocusGroup iFocusGroup) {
-
+    public void setRecipe(IRecipeLayoutBuilder builder, PaintingInfo paintingInfoRecipe, IFocusGroup iFocusGroup) {
+        builder.addSlot(RecipeIngredientRole.INPUT, 0,0)
+                .addIngredient(VanillaTypes.ITEM_STACK, new ItemStack(Items.PAINTING));
     }
 
     @Override
