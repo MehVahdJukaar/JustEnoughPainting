@@ -16,11 +16,5 @@ public class Jepp {
         return new ResourceLocation(MOD_ID, name);
     }
 
-    public static void commonInit() {
-    }
-
-    public static void commonSetup() {
-
-    }
 
 }
