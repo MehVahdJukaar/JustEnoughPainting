@@ -12,6 +12,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.mehvahdjukaar.jepp.PaintingCategory;
 import net.mehvahdjukaar.jepp.PaintingInfo;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.locale.Language;
@@ -73,13 +74,13 @@ public class PaintingRecipeCategory extends PaintingCategory implements IRecipeC
         Font font = Minecraft.getInstance().font;
 
         MutableComponent name = (MutableComponent) recipe.getName();
-        name.setStyle(Style.EMPTY.withBold(true));
+        name.setStyle(Style.EMPTY.withBold(true).withColor(ChatFormatting.WHITE));
         float centerX = RECIPE_WIDTH / 2f - font.width(name) / 2f;
-        font.draw(poseStack, Language.getInstance().getVisualOrder(name), centerX, 0, 0xFF000000);
+        font.draw(poseStack, Language.getInstance().getVisualOrder(name), centerX, 0, 0xFFFFFFFF);
 
         FormattedText descriptionLine = recipe.getDescription();
         centerX = RECIPE_WIDTH / 2f - font.width(descriptionLine) / 2f;
-        font.draw(poseStack, Language.getInstance().getVisualOrder(descriptionLine), centerX, RECIPE_HEIGHT - 8, 0xFF000000);
+        font.draw(poseStack, Language.getInstance().getVisualOrder(descriptionLine), centerX, RECIPE_HEIGHT - 8, 0xFF404040);
 
         poseStack.translate(RECIPE_WIDTH / 2f, RECIPE_HEIGHT / 2f, 0);
         renderPainting(recipe.getPainting(), poseStack, RECIPE_WIDTH, RECIPE_HEIGHT);

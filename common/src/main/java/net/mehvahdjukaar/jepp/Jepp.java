@@ -1,6 +1,7 @@
 package net.mehvahdjukaar.jepp;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.PaintingVariantTags;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +16,5 @@ public class Jepp {
     public static ResourceLocation res(String name) {
         return new ResourceLocation(MOD_ID, name);
     }
-
 
 }

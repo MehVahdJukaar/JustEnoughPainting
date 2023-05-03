@@ -8,8 +8,10 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.mehvahdjukaar.jepp.Jepp;
 import net.mehvahdjukaar.jepp.PaintingInfo;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.PaintingVariantTags;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -40,8 +42,8 @@ public class JeppJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registry) {
-        for (PaintingVariant painting : Registry.PAINTING_VARIANT) {
-            PaintingInfo recipe = new PaintingInfo(painting);
+        for (Holder<PaintingVariant> painting : Registry.PAINTING_VARIANT.getTagOrEmpty(PaintingVariantTags.PLACEABLE)) {
+            PaintingInfo recipe = new PaintingInfo(painting.value());
             registry.addRecipes(PAINTING_INFO_TYPE, List.of(recipe));
         }
     }

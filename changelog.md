@@ -1,1 +1,1 @@
-- added native JEI and REI integration on both loaders
+- will no longer show non placeable paintings

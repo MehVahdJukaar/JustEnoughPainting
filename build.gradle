@@ -50,8 +50,14 @@ subprojects {
             if (modLoader == "fabric") {
                 dependencies {
                     required.project "fabric-api"
+                    optional.project "jei"
+                    optional.project "roughlyenoughitems"
                 }
             } else {
+                dependencies {
+                    optional.project "jei"
+                    optional.project "roughlyenoughitems"
+                }
             }
         }
     }
@@ -71,8 +77,14 @@ subprojects {
                 if (modLoader == "fabric") {
                     relations {
                         requiredDependency "fabric-api"
+                        optionalDependency "jei"
+                        optionalDependency "roughlyenoughitems"
                     }
                 } else {
+                    relations {
+                        optionalDependency "jei"
+                        optionalDependency "roughlyenoughitems"
+                    }
                 }
             }
         }
