@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 public class Jepp {
 
     public static final String MOD_ID = "jepp";
-    public static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger("Jeep");
 
     public static ResourceLocation res(String name) {
         return new ResourceLocation(MOD_ID, name);

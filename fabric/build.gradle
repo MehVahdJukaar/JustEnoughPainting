@@ -32,10 +32,10 @@ dependencies {
         exclude module: "fabric-api"
     }
 
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:9.1.595"
+    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:9.1.595"
 
     modRuntimeOnly("curse.maven:architectury-api-419699:4476083")
-    modImplementation("curse.maven:jei-238222:4494409")
+    modCompileOnly("curse.maven:jei-238222:4494409")
 }
 
 

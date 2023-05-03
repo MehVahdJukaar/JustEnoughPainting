@@ -1,1 +1,1 @@
-* Improved and fixed sounds, easter egg included
+- added native JEI and REI integration on both loaders

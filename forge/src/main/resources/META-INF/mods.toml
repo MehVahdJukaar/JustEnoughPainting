@@ -25,6 +25,7 @@ description='''
 The joy of previewing paintings
 '''
 
+displayTest="IGNORE_ALL_VERSION"
 
 [modproperties.jepp]
     catalogueItemIcon = "minecraft:painting" #catalogue icon
@@ -35,17 +36,11 @@ The joy of previewing paintings
     mandatory=true #mandatory
     versionRange="[40,)" #mandatory
     ordering="NONE"
-    side="BOTH"
+    side="CLIENT"
 
 [[dependencies.jepp]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.19.2,1.20)"
     ordering="NONE"
-    side="BOTH"
-
-[[dependencies.jepp]]
-    modId="moonlight"
-    mandatory=true
-    versionRange="[1.19.2-2.1.20,]"
-    side="BOTH"
+    side="CLIENT"

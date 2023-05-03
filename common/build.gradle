@@ -12,8 +12,8 @@ dependencies {
 
     modCompileOnly("curse.maven:jei-238222:4405345")
     //modCompileOnly("curse.maven:roughly-enough-items-310111:4357860")
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-forge:9.1.595"
-    //modCompileOnly "me.shedaniel:RoughlyEnoughItems-forge:9.1.595"
+    //modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-forge:9.1.595"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-forge:9.1.595"
 }
 
 publishing {

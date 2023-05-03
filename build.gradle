@@ -50,12 +50,8 @@ subprojects {
             if (modLoader == "fabric") {
                 dependencies {
                     required.project "fabric-api"
-                    required.project "moonlight"
                 }
             } else {
-                dependencies {
-                    required.project "moonlight"
-                }
             }
         }
     }
@@ -75,12 +71,8 @@ subprojects {
                 if (modLoader == "fabric") {
                     relations {
                         requiredDependency "fabric-api"
-                        requiredDependency "selene"
                     }
                 } else {
-                    relations {
-                        requiredDependency "selene"
-                    }
                 }
             }
         }

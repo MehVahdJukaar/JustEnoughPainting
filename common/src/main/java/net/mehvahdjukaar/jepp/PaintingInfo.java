@@ -1,7 +1,6 @@
 package net.mehvahdjukaar.jepp;
 
 import net.minecraft.core.Registry;
-import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.PaintingVariant;
@@ -33,7 +32,7 @@ public class PaintingInfo {
         return Component.literal(name);
     }
 
-    public FormattedText getDescription() {
+    public Component getDescription() {
         return description;
     }
 
