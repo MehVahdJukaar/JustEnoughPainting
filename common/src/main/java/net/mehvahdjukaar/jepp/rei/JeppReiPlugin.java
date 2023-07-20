@@ -10,6 +10,7 @@ import net.mehvahdjukaar.jepp.Jepp;
 import net.mehvahdjukaar.jepp.PaintingInfo;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.PaintingVariantTags;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.Items;
@@ -27,7 +28,7 @@ public class JeppReiPlugin implements REIClientPlugin {
 
     @Override
     public void registerDisplays(DisplayRegistry registry) {
-        for (Holder<PaintingVariant> painting : Registry.PAINTING_VARIANT.getTagOrEmpty(PaintingVariantTags.PLACEABLE)) {
+        for (Holder<PaintingVariant> painting : BuiltInRegistries.PAINTING_VARIANT.getTagOrEmpty(PaintingVariantTags.PLACEABLE)) {
             PaintingInfo recipe = new PaintingInfoDisplay(painting.value());
             registry.add(recipe);
         }

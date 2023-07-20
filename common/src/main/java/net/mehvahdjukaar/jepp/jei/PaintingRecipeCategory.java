@@ -15,6 +15,7 @@ import net.mehvahdjukaar.jepp.PaintingInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
@@ -67,25 +68,25 @@ public class PaintingRecipeCategory extends PaintingCategory implements IRecipeC
     }
 
     @Override
-    public void draw(PaintingInfo recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(PaintingInfo recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
 
-        poseStack.pushPose();
+        graphics.pose().pushPose();
 
         Font font = Minecraft.getInstance().font;
 
         MutableComponent name = (MutableComponent) recipe.getName();
         name.setStyle(Style.EMPTY.withBold(true).withColor(ChatFormatting.WHITE));
-        float centerX = RECIPE_WIDTH / 2f - font.width(name) / 2f;
-        font.draw(poseStack, Language.getInstance().getVisualOrder(name), centerX, 0, 0xFFFFFFFF);
+        int centerX = (int) (RECIPE_WIDTH / 2f - font.width(name) / 2f);
+        graphics.drawString(font, Language.getInstance().getVisualOrder(name), centerX, 0, 0xFFFFFFFF, false);
 
         FormattedText descriptionLine = recipe.getDescription();
-        centerX = RECIPE_WIDTH / 2f - font.width(descriptionLine) / 2f;
-        font.draw(poseStack, Language.getInstance().getVisualOrder(descriptionLine), centerX, RECIPE_HEIGHT - 8, 0xFF404040);
+        centerX = (int) (RECIPE_WIDTH / 2f - font.width(descriptionLine) / 2f);
+        graphics.drawString(font, Language.getInstance().getVisualOrder(descriptionLine), centerX, RECIPE_HEIGHT - 8, 0xFF404040, false);
 
-        poseStack.translate(RECIPE_WIDTH / 2f, RECIPE_HEIGHT / 2f, 0);
-        renderPainting(recipe.getPainting(), poseStack, RECIPE_WIDTH, RECIPE_HEIGHT);
+        graphics.pose().translate(RECIPE_WIDTH / 2f, RECIPE_HEIGHT / 2f, 0);
+        renderPainting(recipe.getPainting(), graphics, RECIPE_WIDTH, RECIPE_HEIGHT);
 
-        poseStack.popPose();
+        graphics.pose().popPose();
     }
 
 

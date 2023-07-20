@@ -9,11 +9,12 @@ loom {
 dependencies {
 
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modCompileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:9.+"
 
-    modCompileOnly("curse.maven:jei-238222:4405345")
+    modCompileOnly("curse.maven:jei-238222:4597711")
     //modCompileOnly("curse.maven:roughly-enough-items-310111:4357860")
     //modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-forge:9.1.595"
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-forge:9.1.595"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-forge:12.0.625"
 }
 
 publishing {

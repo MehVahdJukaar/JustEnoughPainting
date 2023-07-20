@@ -12,6 +12,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.mehvahdjukaar.jepp.PaintingCategory;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -87,13 +88,13 @@ public class PaintingRecipeCategory extends PaintingCategory implements DisplayC
         }
 
         @Override
-        public void render(PoseStack poseStack, int i, int j, float f) {
+        public void render(GuiGraphics graphics, int i, int j, float f) {
             //render painting
-            poseStack.pushPose();
-            poseStack.translate(bounds.getCenterX(), bounds.getCenterY(), 0);
+            graphics.pose().pushPose();
+            graphics.pose().translate(bounds.getCenterX(), bounds.getCenterY(), 0);
 
-            renderPainting(painting, poseStack, RECIPE_WIDTH - 14, RECIPE_HEIGHT - 14);
-            poseStack.popPose();
+            renderPainting(painting, graphics, RECIPE_WIDTH - 14, RECIPE_HEIGHT - 14);
+            graphics.pose().popPose();
         }
 
         @Override

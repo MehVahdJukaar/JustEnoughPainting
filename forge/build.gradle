@@ -101,12 +101,8 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 
     implementation 'org.jetbrains:annotations:22.0.0'
-    modCompileOnly("curse.maven:jei-238222:3928388")
+    modImplementation   ("curse.maven:jei-238222:4597711")
 
-    modImplementation "me.shedaniel:RoughlyEnoughItems-forge:9.1.595"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-forge:12.0.625"
 
-    modRuntimeOnly("curse.maven:architectury-api-419699:4476084")
-
-    //modImplementation ("curse.maven:jei-238222:3884337")
-    //modImplementation ("curse.maven:configured-457570:4011355")
 }

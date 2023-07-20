@@ -1,6 +1,7 @@
 package net.mehvahdjukaar.jepp;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.PaintingVariant;
@@ -13,7 +14,7 @@ public class PaintingInfo {
     private final Component description;
 
     public PaintingInfo(PaintingVariant painting) {
-        ResourceLocation r = Registry.PAINTING_VARIANT.getKey(painting);
+        ResourceLocation r = BuiltInRegistries.PAINTING_VARIANT.getKey(painting);
         this.description = Component.translatable("jepp.painting.description",
                 formatName(r.getNamespace()),
                 painting.getWidth(), painting.getHeight());

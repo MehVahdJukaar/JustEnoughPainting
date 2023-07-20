@@ -26,15 +26,8 @@ dependencies {
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 
-    modImplementation("curse.maven:yacl-667299:3987709")
+    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:11.0.597"
 
-    modImplementation("curse.maven:modmenu-308702:3920481") {
-        exclude module: "fabric-api"
-    }
-
-    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:9.1.595"
-
-    modRuntimeOnly("curse.maven:architectury-api-419699:4476083")
     modCompileOnly("curse.maven:jei-238222:4494409")
 }
 

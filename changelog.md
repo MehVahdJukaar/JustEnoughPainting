@@ -1,1 +1,1 @@
-- will no longer show non placeable paintings
+updated to 1.20

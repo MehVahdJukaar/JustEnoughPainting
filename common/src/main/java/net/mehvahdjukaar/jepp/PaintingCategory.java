@@ -1,15 +1,12 @@
 package net.mehvahdjukaar.jepp;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.PaintingTextureManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 
 public abstract class PaintingCategory {
@@ -22,7 +19,7 @@ public abstract class PaintingCategory {
         this.localizedName = Component.translatable("jepp.category.paintings_info");
     }
 
-    protected static void renderPainting(PaintingVariant motive, PoseStack poseStack, int width, int height) {
+    protected static void renderPainting(PaintingVariant motive, GuiGraphics graphics, int width, int height) {
         //render painting
         float spacing = 12;
         float maxWidth = width;
@@ -38,19 +35,13 @@ public abstract class PaintingCategory {
         float scale = ratio < screenRatio ? maxWidth / pWidth : maxHeight / pHeight;
 
 
-        poseStack.scale(scale, scale, scale);
+        graphics.pose().scale(scale, scale, scale);
 
-        ResourceLocation texture = Minecraft.getInstance().getPaintingTextures().getBackSprite().atlas().location();
         PaintingTextureManager paintingtexturemanager = Minecraft.getInstance().getPaintingTextures();
         TextureAtlasSprite sprite = paintingtexturemanager.get(motive);
 
-        RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, texture);
-
-
-        poseStack.translate(-pWidth / 2f, -pHeight / 2f, 0);
-        GuiComponent.blit(poseStack, 0, 0, 0, pWidth, pHeight, sprite);
+        graphics.pose().translate(-pWidth / 2f, -pHeight / 2f, 0);
+        graphics.blit(0, 0, 0, pWidth, pHeight, sprite);
 
         RenderSystem.applyModelViewMatrix();
     }
