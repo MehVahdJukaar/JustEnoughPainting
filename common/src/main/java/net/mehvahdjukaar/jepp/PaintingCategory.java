@@ -9,25 +9,21 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 
-public abstract class PaintingCategory {
+public final class PaintingCategory {
 
     public static final int RECIPE_WIDTH = 160;
     public static final int RECIPE_HEIGHT = 125;
-    protected final MutableComponent localizedName;
+    public static final MutableComponent LOCALIZED_NAME = Component.translatable("jepp.category.paintings_info");
 
-    protected PaintingCategory() {
-        this.localizedName = Component.translatable("jepp.category.paintings_info");
-    }
-
-    protected static void renderPainting(PaintingVariant motive, GuiGraphics graphics, int width, int height) {
+    public static void renderPainting(PaintingVariant motive, GuiGraphics graphics, int width, int height) {
         //render painting
         float spacing = 12;
         float maxWidth = width;
         float maxHeight = height - spacing - 12;
 
 
-        int pWidth = motive.getWidth();
-        int pHeight = motive.getHeight();
+        int pWidth = motive.width() * 16;
+        int pHeight = motive.height() * 16;
 
         float ratio = pHeight / (float) pWidth;
         float screenRatio = maxHeight / maxWidth;

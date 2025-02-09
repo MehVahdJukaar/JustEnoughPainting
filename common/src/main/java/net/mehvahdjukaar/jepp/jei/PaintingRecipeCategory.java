@@ -1,6 +1,5 @@
 package net.mehvahdjukaar.jepp.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -10,7 +9,6 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.mehvahdjukaar.jepp.PaintingCategory;
 import net.mehvahdjukaar.jepp.PaintingInfo;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -24,7 +22,9 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class PaintingRecipeCategory extends PaintingCategory implements IRecipeCategory<PaintingInfo> {
+import static net.mehvahdjukaar.jepp.PaintingCategory.*;
+
+public class PaintingRecipeCategory implements IRecipeCategory<PaintingInfo> {
 
 
     private final IDrawable background;
@@ -39,12 +39,12 @@ public class PaintingRecipeCategory extends PaintingCategory implements IRecipeC
 
     @Override
     public RecipeType<PaintingInfo> getRecipeType() {
-        return JeppJeiPlugin.PAINTING_INFO_TYPE;
+        return JEIPlugin.PAINTING_INFO_TYPE;
     }
 
     @Override
     public Component getTitle() {
-        return this.localizedName;
+        return LOCALIZED_NAME;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class PaintingRecipeCategory extends PaintingCategory implements IRecipeC
         graphics.drawString(font, Language.getInstance().getVisualOrder(descriptionLine), centerX, RECIPE_HEIGHT - 8, 0xFF404040, false);
 
         graphics.pose().translate(RECIPE_WIDTH / 2f, RECIPE_HEIGHT / 2f, 0);
-        renderPainting(recipe.getPainting(), graphics, RECIPE_WIDTH, RECIPE_HEIGHT);
+        renderPainting(recipe.getPainting().value(), graphics, RECIPE_WIDTH, RECIPE_HEIGHT);
 
         graphics.pose().popPose();
     }

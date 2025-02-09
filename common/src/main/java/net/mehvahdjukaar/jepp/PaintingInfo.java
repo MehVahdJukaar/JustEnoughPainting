@@ -1,5 +1,6 @@
 package net.mehvahdjukaar.jepp;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -9,16 +10,16 @@ import org.apache.commons.lang3.StringUtils;
 
 public class PaintingInfo {
 
-    private final PaintingVariant painting;
+    private final Holder<PaintingVariant> painting;
     private final Component name;
     private final Component description;
 
-    public PaintingInfo(PaintingVariant painting) {
-        ResourceLocation r = BuiltInRegistries.PAINTING_VARIANT.getKey(painting);
+    public PaintingInfo(Holder<PaintingVariant> painting) {
+        ResourceLocation location = painting.unwrapKey().get().location();
         this.description = Component.translatable("jepp.painting.description",
-                formatName(r.getNamespace()),
-                painting.getWidth(), painting.getHeight());
-        String name = r.getPath();
+                formatName(location.getNamespace()),
+                painting.value().width(), painting.value().height());
+        String name = location.getPath();
 
         Component text = Component.translatable(name);
         if (text.getString().equals(name)) text = formatName(name);
@@ -41,7 +42,7 @@ public class PaintingInfo {
         return name;
     }
 
-    public PaintingVariant getPainting() {
+    public Holder<PaintingVariant> getPainting() {
         return painting;
     }
 

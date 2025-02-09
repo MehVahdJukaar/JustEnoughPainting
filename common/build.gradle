@@ -1,20 +1,26 @@
 architectury {
-    common(rootProject.enabled_platforms.split(","))
+    common(enabled_platforms.split(",")) {
+        // This means map neoforge to forge
+        //it.platformPackage "neoforge", "forge"
+    }
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/jepp.accesswidener")
 }
 
 dependencies {
+    // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
+    // Do NOT use other classes from fabric loader
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
 
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modCompileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:9.+"
 
-    modCompileOnly("curse.maven:jei-238222:4597711")
-    //modCompileOnly("curse.maven:roughly-enough-items-310111:4357860")
-    //modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-forge:9.1.595"
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-forge:12.0.625"
+    modCompileOnly("curse.maven:jei-238222:5466551")
+    modCompileOnly("curse.maven:emi-580555:5436759")
+    //modCompileOnly("curse.maven:roughly-enough-items-310111:5435024")
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:16.0.729"
+
+    //modCompileOnly "dev.emi:emi-xplat-intermediary:1.1.7+${rootProject.minecraft_version}"
 }
 
 publishing {

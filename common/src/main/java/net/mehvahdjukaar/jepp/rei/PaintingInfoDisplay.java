@@ -5,6 +5,7 @@ import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.mehvahdjukaar.jepp.PaintingInfo;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.Items;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class PaintingInfoDisplay extends PaintingInfo implements Display {
 
-    public PaintingInfoDisplay(PaintingVariant painting) {
+    public PaintingInfoDisplay(Holder<PaintingVariant> painting) {
         super(painting);
     }
 
@@ -28,6 +29,6 @@ public class PaintingInfoDisplay extends PaintingInfo implements Display {
 
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
-        return JeppReiPlugin.PAINTING_INFO_TYPE;
+        return REIPlugin.PAINTING_INFO_TYPE;
     }
 }

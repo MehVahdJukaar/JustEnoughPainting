@@ -1,35 +1,53 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "0.12.0-SNAPSHOT" apply false
-   // id 'io.github.juuxel.loom-quiltflower' version '1.7.1' apply false
+    id "dev.architectury.loom" version "1.7-SNAPSHOT" apply false
+    id 'io.github.juuxel.loom-quiltflower' version '1.7.1' apply false
     id "com.matthewprenger.cursegradle" version "1.4.0"
     id "com.modrinth.minotaur" version "2.+"
 }
 
 architectury {
+    minecraft = minecraft_version
+}
 
-    minecraft = rootProject.minecraft_version
+static def listGameVersions(String string1, String string2) {
+    // Extract the base version and the starting and ending patch numbers
+    String baseVersion = string1
+    int startPatch = 0
+    int endPatch = Integer.parseInt(string2.split('\\.')[2])
+
+    // Initialize an array to hold the generated versions
+    def versions = []
+
+    // Add the base version (string1) to the array
+    versions << baseVersion
+
+    // Generate and add the patch versions
+    for (int i = startPatch + 1; i <= endPatch; i++) {
+        versions << "${baseVersion}.${i}"
+    }
+
+    // Return the generated versions
+    return versions
 }
 
 subprojects {
     apply plugin: "dev.architectury.loom"
-  //  apply plugin: "io.github.juuxel.loom-quiltflower"
+    apply plugin: "io.github.juuxel.loom-quiltflower"
     apply plugin: "com.matthewprenger.cursegradle"
     apply plugin: "com.modrinth.minotaur"
-
 
     loom {
         silentMojangMappingsLicense()
     }
 
     dependencies {
-        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+        minecraft "com.mojang:minecraft:${minecraft_version}"
         mappings loom.layered() {
-
-            it.parchment("org.parchmentmc.data:parchment-${rootProject.parchment_version}")
             it.officialMojangMappings {
                 setNameSyntheticMembers(false)
             }
+            //it.parchment("org.parchmentmc.data:parchment-${parchment_version}")
         }
     }
 
@@ -38,25 +56,30 @@ subprojects {
 
     var changelogFile = rootProject.file("changelog.md")
     var changelogText = changelogFile.exists() ? changelogFile.text : ""
+    var versions = listGameVersions(minecraft_min_version, minecraft_version)
 
     if (env.MODRINTH_TOKEN) {
         modrinth {
-            projectId = rootProject.mod_id
+            projectId = "just-enough-effect-descriptions-jeed"
             uploadFile = tasks.remapJar
-            gameVersions = [rootProject.minecraft_version]
-            loaders = [modLoader]
+            gameVersions = versions
+            if (modLoader == "forge") {
+                loaders = ["neoforge"]
+            } else loaders = [modLoader]
             changelog = changelogText
 
             if (modLoader == "fabric") {
                 dependencies {
                     required.project "fabric-api"
                     optional.project "jei"
-                    optional.project "roughly-enough-items"
+                    optional.project "emi"
+                    optional.project "rei"
                 }
             } else {
                 dependencies {
                     optional.project "jei"
-                    optional.project "roughly-enough-items"
+                    optional.project "rei"
+                    optional.project "emi"
                 }
             }
         }
@@ -66,11 +89,16 @@ subprojects {
         curseforge {
             apiKey = env.CURSEFORGE_TOKEN
             project {
-                id = rootProject.project_id
+                id = project_id
                 changelog = changelogText
                 releaseType = 'release'
-                addGameVersion rootProject.minecraft_version
-                addGameVersion modLoader.capitalize()
+                for (var ver : versions){
+                    addGameVersion ver
+                }
+
+                if (modLoader == "neoforge") {
+                    addGameVersion("NeoForge")
+                } else addGameVersion modLoader.capitalize()
 
                 mainArtifact(tasks.remapJar)
 
@@ -78,11 +106,13 @@ subprojects {
                     relations {
                         requiredDependency "fabric-api"
                         optionalDependency "jei"
+                        optionalDependency "emi"
                         optionalDependency "roughly-enough-items"
                     }
                 } else {
                     relations {
                         optionalDependency "jei"
+                        optionalDependency "emi"
                         optionalDependency "roughly-enough-items"
                     }
                 }
@@ -96,9 +126,10 @@ allprojects {
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
 
-    archivesBaseName = rootProject.mod_id
-    version = rootProject.mod_version
-    group = rootProject.maven_group
+    archivesBaseName = mod_id
+    version = mod_version
+    group = mod_group_id
+
 
     repositories {
 
@@ -116,11 +147,35 @@ allprojects {
             url = "https://www.cursemaven.com"
             allowInsecureProtocol = true
         }
+        maven {
+            name = "TerraformersMC"
+            url = "https://maven.terraformersmc.com/"
+        }
+        maven {
+            url "https://maven.firstdarkdev.xyz/snapshots"
+        }
+
+        maven {
+            name = 'Ladysnake Mods'
+            url = 'https://maven.ladysnake.org/releases'
+        }
+
+        maven { url 'https://jitpack.io' }
+
+        maven {
+            url = 'https://maven.neoforged.net'
+        }
+
+        maven {
+            url = "https://api.modrinth.com/maven"
+        }
+
+
     }
 
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
-        options.release = 17
+        options.release = 21
     }
 
     java {

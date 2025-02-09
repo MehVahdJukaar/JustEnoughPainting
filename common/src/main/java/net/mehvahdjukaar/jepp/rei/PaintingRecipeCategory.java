@@ -1,6 +1,5 @@
 package net.mehvahdjukaar.jepp.rei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -10,8 +9,6 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.mehvahdjukaar.jepp.PaintingCategory;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
@@ -25,7 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PaintingRecipeCategory extends PaintingCategory implements DisplayCategory<PaintingInfoDisplay> {
+import static net.mehvahdjukaar.jepp.PaintingCategory.*;
+
+public class PaintingRecipeCategory implements DisplayCategory<PaintingInfoDisplay> {
 
     public PaintingRecipeCategory() {
         super();
@@ -49,12 +48,12 @@ public class PaintingRecipeCategory extends PaintingCategory implements DisplayC
 
     @Override
     public Component getTitle() {
-        return localizedName;
+        return LOCALIZED_NAME;
     }
 
     @Override
     public CategoryIdentifier<? extends PaintingInfoDisplay> getCategoryIdentifier() {
-        return JeppReiPlugin.PAINTING_INFO_TYPE;
+        return REIPlugin.PAINTING_INFO_TYPE;
     }
 
     @Override
@@ -62,7 +61,7 @@ public class PaintingRecipeCategory extends PaintingCategory implements DisplayC
         final List<Widget> widgets = new ArrayList<>();
 
         widgets.add(Widgets.createRecipeBase(bounds));
-        widgets.add(new PaintingWidget(bounds, display.getPainting()));
+        widgets.add(new PaintingWidget(bounds, display.getPainting().value()));
 
 
         MutableComponent name = (MutableComponent) display.getName();
