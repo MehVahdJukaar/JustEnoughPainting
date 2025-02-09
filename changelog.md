@@ -1,1 +1,2 @@
-updated to 1.20
+1.21
+added emi support
