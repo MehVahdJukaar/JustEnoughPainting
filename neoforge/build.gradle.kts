@@ -6,13 +6,15 @@ neoforge {
     dependOn(project(":common"))
 }
 
+val mc_version: String by extra
+val jei_version: String by extra
 val rei_version: String by extra
-val rei_annotations_version: String by extra
 
 dependencies {
-    modCompileOnly("curse.maven:jei-238222:5466551")
-    modImplementation("curse.maven:emi-580555:5436759")
+    modCompileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
+    modRuntimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
 
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
-    modCompileOnly("me.shedaniel:REIPluginCompatibilities-forge-annotations:${rei_annotations_version}")
+    // the platform artifacts JiJ cloth-config/basic-math/architectury, so pull the api for those classes
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rei_version}")
 }

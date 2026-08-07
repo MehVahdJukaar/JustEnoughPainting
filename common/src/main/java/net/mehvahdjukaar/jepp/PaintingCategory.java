@@ -1,13 +1,13 @@
 package net.mehvahdjukaar.jepp;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.PaintingTextureManager;
+import net.minecraft.data.AtlasIds;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.world.entity.decoration.painting.PaintingVariant;
 
 public final class PaintingCategory {
 
@@ -15,30 +15,25 @@ public final class PaintingCategory {
     public static final int RECIPE_HEIGHT = 125;
     public static final MutableComponent LOCALIZED_NAME = Component.translatable("jepp.category.paintings_info");
 
-    public static void renderPainting(PaintingVariant motive, GuiGraphics graphics, int width, int height) {
-        //render painting
+    public static void renderPainting(PaintingVariant painting, GuiGraphicsExtractor graphics, int centerX, int centerY, int maxWidth, int maxHeight) {
         float spacing = 12;
-        float maxWidth = width;
-        float maxHeight = height - spacing - 12;
+        float boxWidth = maxWidth;
+        float boxHeight = maxHeight - spacing - 12;
 
-
-        int pWidth = motive.width() * 16;
-        int pHeight = motive.height() * 16;
+        int pWidth = painting.width() * 16;
+        int pHeight = painting.height() * 16;
 
         float ratio = pHeight / (float) pWidth;
-        float screenRatio = maxHeight / maxWidth;
+        float b = boxHeight / boxWidth;
 
-        float scale = ratio < screenRatio ? maxWidth / pWidth : maxHeight / pHeight;
+        float scale = (ratio < b) ? boxWidth / pWidth : boxHeight / pHeight;
 
+        int width = Math.round(pWidth * scale);
+        int height = Math.round(pHeight * scale);
 
-        graphics.pose().scale(scale, scale, scale);
+        TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasManager()
+                .getAtlasOrThrow(AtlasIds.PAINTINGS).getSprite(painting.assetId());
 
-        PaintingTextureManager paintingtexturemanager = Minecraft.getInstance().getPaintingTextures();
-        TextureAtlasSprite sprite = paintingtexturemanager.get(motive);
-
-        graphics.pose().translate(-pWidth / 2f, -pHeight / 2f, 0);
-        graphics.blit(0, 0, 0, pWidth, pHeight, sprite);
-
-        RenderSystem.applyModelViewMatrix();
+        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, centerX - width / 2, centerY - height / 2, width, height);
     }
 }

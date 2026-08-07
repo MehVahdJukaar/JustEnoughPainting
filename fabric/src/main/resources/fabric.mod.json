@@ -23,13 +23,11 @@
     ],
     "jei_mod_plugin": [
       "net.mehvahdjukaar.jepp.jei.JEIPlugin"
-    ],
-    "emi": [
-      "net.mehvahdjukaar.jepp.emi.EMIPlugin"
     ]
   },
   "depends": {
     "fabric-api": "*",
-    "minecraft": "=${minecraft_version}"
+    "minecraft": ">=26.1- <=26.1.2",
+    "java": ">=25"
   }
 }

@@ -8,7 +8,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.mehvahdjukaar.jepp.Jepp;
 import net.mehvahdjukaar.jepp.PaintingInfo;
 import net.minecraft.core.Holder;
-import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.world.entity.decoration.painting.PaintingVariant;
 import net.minecraft.world.item.Items;
 
 public class REIPlugin implements REIClientPlugin {

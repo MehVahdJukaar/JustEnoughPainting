@@ -4,8 +4,8 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.decoration.painting.PaintingVariant;
 import org.apache.commons.lang3.StringUtils;
 
 public class PaintingInfo {
@@ -15,7 +15,7 @@ public class PaintingInfo {
     private final Component description;
 
     public PaintingInfo(Holder<PaintingVariant> painting) {
-        ResourceLocation location = painting.unwrapKey().get().location();
+        Identifier location = painting.unwrapKey().get().identifier();
         this.description = Component.translatable("jepp.painting.description",
                 formatName(location.getNamespace()),
                 painting.value().width(), painting.value().height());

@@ -2,16 +2,15 @@ package net.mehvahdjukaar.jepp.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.mehvahdjukaar.jepp.Jepp;
 import net.mehvahdjukaar.jepp.PaintingInfo;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.decoration.PaintingVariant;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.decoration.painting.PaintingVariant;
 import net.minecraft.world.item.Items;
 
 import java.util.List;
@@ -22,16 +21,16 @@ import java.util.List;
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
 
-    private static final ResourceLocation ID = Jepp.res("jei_plugin");
+    private static final Identifier ID = Jepp.res("jei_plugin");
 
     @Override
-    public ResourceLocation getPluginUid() {
+    public Identifier getPluginUid() {
         return ID;
     }
 
 
-    public static final RecipeType<PaintingInfo> PAINTING_INFO_TYPE =
-            RecipeType.create(Jepp.MOD_ID, "painting", PaintingInfo.class);
+    public static final IRecipeType<PaintingInfo> PAINTING_INFO_TYPE =
+            IRecipeType.create(Jepp.MOD_ID, "painting", PaintingInfo.class);
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
@@ -48,7 +47,7 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(Items.PAINTING), PAINTING_INFO_TYPE);
+        registration.addCraftingStation(PAINTING_INFO_TYPE, Items.PAINTING);
     }
 
 

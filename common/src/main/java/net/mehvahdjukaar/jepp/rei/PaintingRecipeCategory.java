@@ -9,12 +9,12 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.client.gui.GuiGraphics;
+import me.shedaniel.rei.api.client.gui.compat.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.world.entity.decoration.painting.PaintingVariant;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 
@@ -88,12 +88,7 @@ public class PaintingRecipeCategory implements DisplayCategory<PaintingInfoDispl
 
         @Override
         public void render(GuiGraphics graphics, int i, int j, float f) {
-            //render painting
-            graphics.pose().pushPose();
-            graphics.pose().translate(bounds.getCenterX(), bounds.getCenterY(), 0);
-
-            renderPainting(painting, graphics, RECIPE_WIDTH - 14, RECIPE_HEIGHT - 14);
-            graphics.pose().popPose();
+            renderPainting(painting, graphics, bounds.getCenterX(), bounds.getCenterY(), RECIPE_WIDTH - 14, RECIPE_HEIGHT - 14);
         }
 
         @Override

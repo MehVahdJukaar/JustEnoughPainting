@@ -2,13 +2,18 @@ plugins {
     id("com.possible-triangle.common")
 }
 
+val mc_version: String by extra
+val jei_version: String by extra
 val rei_version: String by extra
 val rei_annotations_version: String by extra
 
 dependencies {
-    modCompileOnly("curse.maven:jei-238222:5466551")
-    modCompileOnly("curse.maven:emi-580555:5436759")
+    modCompileOnly("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
 
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rei_version}")
+    // for the @REIPluginClient annotation REI uses for discovery on neoforge
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}")
     modCompileOnly("me.shedaniel:REIPluginCompatibilities-forge-annotations:${rei_annotations_version}")
+
+    // EMI has no 26.1 build yet (latest release targets 1.21.1), so the EMI plugin is disabled
 }
