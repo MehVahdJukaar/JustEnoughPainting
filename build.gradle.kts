@@ -46,13 +46,6 @@ subprojects {
                 optional("roughly-enough-items")
             }
         }
-        modrinth {
-            dependencies {
-                optional("jei")
-                optional("rei")
-            }
-        }
-
         forEach {
             changelog = rootProject.file("changelog.md").readText()
             versionName = "${mod.id.get()}-${mod.version.get()}-${project.name}"
