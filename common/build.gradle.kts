@@ -2,6 +2,11 @@ plugins {
     id("com.possible-triangle.common")
 }
 
+common {
+    //pinned so the build doesn't need to hit maven.neoforged.net to list versions
+    neoformVersion = "26.1.2-1"
+}
+
 val mc_version: String by extra
 val jei_version: String by extra
 val rei_version: String by extra
